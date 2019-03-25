@@ -13,6 +13,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
     let address: String
     let commonName: String
     let latinName: String
+    let diameter: Int
     let latitude: Double
     let longitude: Double
     
@@ -20,6 +21,8 @@ class Tree: NSObject, MKAnnotation, Decodable {
         case address = "address"
         case commonName = "spc_common"
         case latinName = "spc_latin"
+        case liveTreeDiameter = "tree_dbh"
+        case stumpDiameter = "stump_diam"
         case latitude = "latitude"
         case longitude = "longitude"
     }
@@ -30,6 +33,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
         self.address = try container.decode(String.self, forKey: .address)
         self.commonName = (try? container.decode(String.self, forKey: .commonName)) ?? ""
         self.latinName = (try? container.decode(String.self, forKey: .latinName)) ?? ""
+        self.diameter = try Int(container.decode(String.self, forKey: .liveTreeDiameter))!
         self.latitude = try Double(container.decode(String.self, forKey: .latitude))!
         self.longitude = try Double(container.decode(String.self, forKey: .longitude))!
     }
