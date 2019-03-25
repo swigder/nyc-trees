@@ -14,6 +14,9 @@
 		F57E48122247DF2300E36ECB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F57E48102247DF2300E36ECB /* LaunchScreen.storyboard */; };
 		F57E481D2247DF2300E36ECB /* nyc_treesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E481C2247DF2300E36ECB /* nyc_treesTests.swift */; };
 		F57E48282247DF2300E36ECB /* nyc_treesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E48272247DF2300E36ECB /* nyc_treesUITests.swift */; };
+		F57E48362247E44E00E36ECB /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E48352247E44E00E36ECB /* Tree.swift */; };
+		F57E48382247EACB00E36ECB /* TreeRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E48372247EACB00E36ECB /* TreeRequester.swift */; };
+		F57E483A22484DAC00E36ECB /* TreeMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57E483922484DAC00E36ECB /* TreeMarkerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		F57E48232247DF2300E36ECB /* nyc-treesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "nyc-treesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57E48272247DF2300E36ECB /* nyc_treesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nyc_treesUITests.swift; sourceTree = "<group>"; };
 		F57E48292247DF2300E36ECB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F57E48352247E44E00E36ECB /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		F57E48372247EACB00E36ECB /* TreeRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeRequester.swift; sourceTree = "<group>"; };
+		F57E483922484DAC00E36ECB /* TreeMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeMarkerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,9 @@
 				F57E480E2247DF2300E36ECB /* Assets.xcassets */,
 				F57E48102247DF2300E36ECB /* LaunchScreen.storyboard */,
 				F57E48132247DF2300E36ECB /* Info.plist */,
+				F57E48352247E44E00E36ECB /* Tree.swift */,
+				F57E483922484DAC00E36ECB /* TreeMarkerView.swift */,
+				F57E48372247EACB00E36ECB /* TreeRequester.swift */,
 			);
 			path = "nyc-trees";
 			sourceTree = "<group>";
@@ -256,8 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F57E48382247EACB00E36ECB /* TreeRequester.swift in Sources */,
 				F57E480A2247DF2100E36ECB /* ViewController.swift in Sources */,
 				F57E48082247DF2100E36ECB /* AppDelegate.swift in Sources */,
+				F57E48362247E44E00E36ECB /* Tree.swift in Sources */,
+				F57E483A22484DAC00E36ECB /* TreeMarkerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
