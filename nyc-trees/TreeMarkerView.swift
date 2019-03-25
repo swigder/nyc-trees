@@ -20,7 +20,7 @@ class TreeMarkerView: MKAnnotationView {
             canShowCallout = true
             calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            color = tree.markerTintColor
+            color = treeColors[tree.latinName] ?? defaultTreeColor
             let diameter = max(5, tree.diameter)
             frame = CGRect(x:0, y:0, width:diameter, height:diameter)
         }

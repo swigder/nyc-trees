@@ -49,20 +49,5 @@ class Tree: NSObject, MKAnnotation, Decodable {
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-    
-    var markerTintColor: UIColor  {
-        switch latinName {
-        case "Platanus x acerifolia":
-            return .red
-        case "Ginkgo biloba":
-            return .cyan
-        case "Gleditsia triacanthos var. inermis":
-            return .blue
-        case "Tilia americana":
-            return .purple
-        default:
-            return .green
-        }
-    }
 
 }
