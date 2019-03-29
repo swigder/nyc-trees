@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 
 class Tree: NSObject, MKAnnotation, Decodable {
+    let id: Int
     let address: String
     let commonName: String
     let latinName: String
@@ -18,6 +19,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
     let longitude: Double
     
     enum JsonKeys: String, CodingKey {
+        case id = "tree_id"
         case address = "address"
         case commonName = "spc_common"
         case latinName = "spc_latin"
@@ -30,6 +32,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: JsonKeys.self)
 
+        self.id =  try Int(container.decode(String.self, forKey: .id))!
         self.address = try container.decode(String.self, forKey: .address)
         self.commonName = (try? container.decode(String.self, forKey: .commonName)) ?? ""
         self.latinName = (try? container.decode(String.self, forKey: .latinName)) ?? ""

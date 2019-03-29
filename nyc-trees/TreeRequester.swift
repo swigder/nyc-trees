@@ -11,11 +11,7 @@ import MapKit
 
 let url = URL(string:"https://data.cityofnewyork.us/resource/uvpi-gqnh.json")!
 
-func fetchTrees(region: MKCoordinateRegion) -> [Tree] {
-    let semaphore = DispatchSemaphore(value: 0)
-    
-    var result: [Tree] = []
-    
+func fetchTrees(region: MKCoordinateRegion, callback: @escaping ([Tree]) -> Void) {
     let latitudeMin = region.center.latitude - region.span.latitudeDelta/2
     let latitudeMax = region.center.latitude + region.span.latitudeDelta/2
     let longitudeMin = region.center.longitude - region.span.longitudeDelta/2
@@ -23,6 +19,8 @@ func fetchTrees(region: MKCoordinateRegion) -> [Tree] {
     
     let queryItems: [URLQueryItem]? = [
         URLQueryItem(name: "$where", value: "latitude between \(latitudeMin) and \(latitudeMax) and longitude between \(longitudeMin) and \(longitudeMax)"),
+        URLQueryItem(name: "status", value: "Alive"),
+        URLQueryItem(name: "$limit", value: "100"),
     ]
 
     let locationUrlComponents = NSURLComponents(string: url.absoluteString)
@@ -32,14 +30,11 @@ func fetchTrees(region: MKCoordinateRegion) -> [Tree] {
     
     let task = URLSession.shared.dataTask(with: locationUrlComponents!.url!) {(data, response, error) in
         do {
-            result = try JSONDecoder().decode([Tree].self, from: data!)
+            callback(try JSONDecoder().decode([Tree].self, from: data!))
         } catch {
             print("json error: \(error)")
         }
-        semaphore.signal()
     }
     
     task.resume()
-    semaphore.wait()
-    return result
 }

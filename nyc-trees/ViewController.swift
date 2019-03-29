@@ -17,14 +17,16 @@ class ViewController: UIViewController {
     let regionRadius: CLLocationDistance = 250
     let centralParkLocation = CLLocation(latitude:40.782222, longitude:-73.965278)
 
-    var trees: [Tree] = []
+    var treeIds = Set<Int>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         centerMapOnLocation(location: centralParkLocation)
+        mapView.mapType = .standard
         mapView.showsCompass = true
         mapView.showsScale = true
         mapView.showsUserLocation = true
+        mapView.setUserTrackingMode(.follow, animated: true)
         
         mapView.delegate = self
         
@@ -36,8 +38,12 @@ class ViewController: UIViewController {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
+            if locationManager.location != nil {
+                centerMapOnLocation(location: locationManager.location!)
+            }
         } else {
             centerMapOnLocation(location: centralParkLocation)
+            updateTrees()
         }
     }
 
@@ -47,17 +53,35 @@ class ViewController: UIViewController {
                                                   longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    
+    func updateTrees() {
+        fetchTrees(region: mapView.region, callback: treesWereFetched(trees:))
+    }
+    
+    func treesWereFetched(trees: [Tree]) {
+        let newTrees = trees.filter({ (tree: Tree) -> Bool in
+            !treeIds.contains(tree.id)
+        })
+        print("Found \(trees.count) (\(newTrees.count) new) trees")
+        if newTrees.isEmpty { return }
+        DispatchQueue.main.async {
+            self.mapView.addAnnotations(trees)
+        }
+        trees.forEach { (tree: Tree) in treeIds.insert(tree.id) }
+    }
 }
 
 extension ViewController: MKMapViewDelegate {
-
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        updateTrees()
+    }
 }
 
 extension ViewController:CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocation = manager.location else { return }
         centerMapOnLocation(location: locValue)
-        trees = fetchTrees(region: mapView.region)
-        mapView.addAnnotations(trees)
+        updateTrees()
+        locationManager.delegate = nil
     }
 }

@@ -205,13 +205,16 @@
 				TargetAttributes = {
 					F57E48032247DF2100E36ECB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 					F57E48172247DF2300E36ECB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = F57E48032247DF2100E36ECB;
 					};
 					F57E48222247DF2300E36ECB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = F57E48032247DF2100E36ECB;
 					};
 				};
@@ -449,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3PP6QS3UCQ;
 				INFOPLIST_FILE = "nyc-trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -456,7 +460,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -466,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3PP6QS3UCQ;
 				INFOPLIST_FILE = "nyc-trees/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -473,7 +478,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-trees";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -492,7 +497,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-treesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/nyc-trees.app/nyc-trees";
 			};
@@ -512,7 +517,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-treesTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/nyc-trees.app/nyc-trees";
 			};
@@ -531,7 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-treesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "nyc-trees";
 			};
@@ -550,7 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swigder.nyc-treesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "nyc-trees";
 			};
