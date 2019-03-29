@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         print("Found \(trees.count) (\(newTrees.count) new) trees")
         if newTrees.isEmpty { return }
         DispatchQueue.main.async {
-            self.mapView.addAnnotations(trees)
+            self.mapView.addAnnotations(newTrees)
         }
         trees.forEach { (tree: Tree) in treeIds.insert(tree.id) }
     }
