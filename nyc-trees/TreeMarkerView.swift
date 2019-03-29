@@ -19,14 +19,16 @@ class TreeMarkerView: MKAnnotationView {
             guard let tree = newValue as? Tree else { return }
             canShowCallout = true
             calloutOffset = CGPoint(x: -5, y: 5)
-            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             color = treeColors[tree.latinName] ?? defaultTreeColor
             let diameter = max(5, tree.diameter)
             frame = CGRect(x:0, y:0, width:diameter, height:diameter)
+            setNeedsDisplay()
         }
     }
     
     override func draw(_ rect: CGRect) {
+        layer.sublayers?.removeAll()
+        
         let halfLineWidth:CGFloat = 0.75
         
         let circlePath = UIBezierPath(ovalIn: rect.insetBy(dx: halfLineWidth, dy: halfLineWidth))

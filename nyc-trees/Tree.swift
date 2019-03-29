@@ -46,7 +46,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
     }
     
     var subtitle: String? {
-        return latinName
+        return String(id)
     }
     
     var coordinate: CLLocationCoordinate2D {
