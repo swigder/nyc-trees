@@ -20,7 +20,7 @@ class TreeMarkerView: MKAnnotationView {
             canShowCallout = true
             calloutOffset = CGPoint(x: -5, y: 5)
             color = treeColors[tree.latinName] ?? defaultTreeColor
-            let diameter = max(5, tree.diameter)
+            let diameter = 5 + tree.diameter / 2
             frame = CGRect(x:0, y:0, width:diameter, height:diameter)
             setNeedsDisplay()
         }
@@ -35,7 +35,7 @@ class TreeMarkerView: MKAnnotationView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
-        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.fillColor = color.cgColor.copy(alpha: 0.8)
         shapeLayer.strokeColor = color.cgColor
         shapeLayer.lineWidth = halfLineWidth * 2
         layer.addSublayer(shapeLayer)
