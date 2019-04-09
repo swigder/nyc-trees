@@ -42,7 +42,7 @@ class Tree: NSObject, MKAnnotation, Decodable {
     }
     
     var title: String? {
-        return commonName
+        return "\(commonName.firstCapitalized), \(diameter) inches, id: \(id)"
     }
     
     var subtitle: String? {
@@ -53,4 +53,10 @@ class Tree: NSObject, MKAnnotation, Decodable {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 
+}
+
+extension StringProtocol {
+    var firstCapitalized: String {
+        return prefix(1).capitalized + dropFirst()
+    }
 }
