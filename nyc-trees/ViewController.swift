@@ -11,6 +11,8 @@ import MapKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var detailView: UIView!
+    @IBOutlet weak var commonNameLabel: UILabel!
 
     let locationManager = CLLocationManager()
     
@@ -32,7 +34,7 @@ class ViewController: UIViewController {
         
         mapView.register(TreeMarkerView.self,
                          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        
+                
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -74,6 +76,12 @@ class ViewController: UIViewController {
 extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         updateTrees()
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let treeMarker = view as? TreeMarkerView else { return }
+
+        commonNameLabel.text = view.annotation?.title ?? ""
     }
 }
 
