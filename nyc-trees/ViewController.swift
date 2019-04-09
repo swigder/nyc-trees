@@ -30,6 +30,10 @@ class ViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
         
+        let trackingButton = MKUserTrackingButton(mapView: mapView)
+        trackingButton.frame = CGRect(origin: CGPoint(x:5, y: 25), size: CGSize(width: 35, height: 35))
+        mapView.addSubview(trackingButton)
+
         mapView.delegate = self
         
         mapView.register(TreeMarkerView.self,
