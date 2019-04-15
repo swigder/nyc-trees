@@ -52,11 +52,18 @@ class Tree: NSObject, MKAnnotation, Decodable {
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-
 }
 
 extension StringProtocol {
     var firstCapitalized: String {
         return prefix(1).capitalized + dropFirst()
+    }
+}
+
+class SelectedTree : NSObject, MKAnnotation {
+    public var coordinate: CLLocationCoordinate2D
+
+    init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
     }
 }

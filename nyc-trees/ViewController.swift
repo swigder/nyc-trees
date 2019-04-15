@@ -18,8 +18,10 @@ class ViewController: UIViewController {
     
     let regionRadius: CLLocationDistance = 250
     let centralParkLocation = CLLocation(latitude:40.782222, longitude:-73.965278)
-
+    
     var treeIds = Set<Int>()
+    
+    var selectedAnnotation: SelectedTree?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +38,6 @@ class ViewController: UIViewController {
 
         mapView.delegate = self
         
-        mapView.register(TreeMarkerView.self,
-                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-                
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -86,6 +85,42 @@ extension ViewController: MKMapViewDelegate {
         guard let treeMarker = view as? TreeMarkerView else { return }
 
         commonNameLabel.text = view.annotation?.title ?? ""
+        
+        guard let tree = treeMarker.annotation as? Tree else { return }
+
+        if selectedAnnotation != nil {
+            mapView.removeAnnotation(selectedAnnotation!)
+            selectedAnnotation?.coordinate = tree.coordinate
+        } else {
+            selectedAnnotation = SelectedTree(coordinate: tree.coordinate)
+        }
+        mapView.addAnnotation(selectedAnnotation!)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        if annotation === selectedAnnotation {
+            let reuseId = "selected"
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if view == nil {
+                view = TreeMarkerSelectedView(annotation: annotation, reuseIdentifier: reuseId)
+            } else {
+                view?.annotation = annotation
+            }
+            return view
+        } else {
+            let reuseId = "others"
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+            if view == nil {
+                view = TreeMarkerView(annotation: annotation, reuseIdentifier: reuseId)
+            } else {
+                view?.annotation = annotation
+            }
+            return view
+        }
     }
 }
 

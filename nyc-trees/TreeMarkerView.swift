@@ -52,5 +52,8 @@ class TreeMarkerView: MKAnnotationView {
             shapeLayer.fillColor = color.copy(alpha: 0.8)
         }
     }
+}
+
+class TreeMarkerSelectedView: MKPinAnnotationView {
 
 }
