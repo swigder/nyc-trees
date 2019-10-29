@@ -59,6 +59,10 @@ extension StringProtocol {
     var firstCapitalized: String {
         return prefix(1).capitalized + dropFirst()
     }
+    
+    var wikipediaPage: String {
+        return replacingOccurrences(of: " ", with: "_")
+    }
 }
 
 extension Tree {

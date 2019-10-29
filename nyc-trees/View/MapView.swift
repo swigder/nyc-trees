@@ -40,18 +40,14 @@ struct MapView: UIViewRepresentable {
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.frame.origin = CGPoint(x: 10, y: 60)
         mapView.addSubview(button)
-                
+        
         return mapView
     }
     
     func updateUIView(_ view: MKMapView, context: Context) {
-//        let region = MKCoordinateRegion(center: coordinate ?? defaultCoordinate,
-//                                        latitudinalMeters: regionRadius,
-//                                        longitudinalMeters: regionRadius)
-//        view.setRegion(region, animated: true)
+
     }
 }
 

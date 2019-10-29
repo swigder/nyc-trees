@@ -11,14 +11,33 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var locationManager = LocationManager()
     @ObservedObject var treeData = TreeData()
+    
+    @GestureState var isLongPressed = false
+
+    @State var expandedDetail = false
+    @State var expandedSize: CGFloat = 0
         
     var body: some View {
-        VStack {
+        let longPressAndDrag = LongPressGesture()
+            .updating($isLongPressed) { value, state, transition in
+                state = value
+        }.simultaneously(with: DragGesture()
+            .onChanged {
+                self.expandedDetail = $0.translation.height < -50
+            }
+            .onEnded { _ in
+            }
+        )
+
+        return VStack {
             MapView(coordinate: $locationManager.currentLocation, treeData: treeData)
                 .edgesIgnoringSafeArea(.top)
             
             TreeDetailView(tree: $treeData.selectedTree)
                 .frame(height: 200)
+                .gesture(longPressAndDrag)
+        }.sheet(isPresented: self.$expandedDetail) {
+            TreeWebInfoView(tree: self.$treeData.selectedTree)
         }
     }
 }

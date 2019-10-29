@@ -12,7 +12,7 @@ struct TreeDetailView: View {
     @Binding var tree: Tree
     
     var body: some View {
-        VStack {
+        return VStack {
             CircleImage(image: tree.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
