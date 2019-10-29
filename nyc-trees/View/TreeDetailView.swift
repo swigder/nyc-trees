@@ -19,10 +19,13 @@ struct TreeDetailView: View {
 
             
             VStack(alignment: .leading) {
-                Text(tree.commonName)
-                    .font(.title)
+                HStack {                    Text(tree.commonName.firstCapitalized)
+                        .font(.title)
+                    Spacer()
+                    Text("\(tree.diameter) inches")
+                }
                 HStack {
-                    Text(tree.latinName)
+                    Text(tree.latinName.firstCapitalized)
                         .font(.subheadline)
                     Spacer()
                     Text(tree.address)
@@ -36,8 +39,12 @@ struct TreeDetailView: View {
     }
 }
 
-//struct TreeDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TreeDetailView(tree: nil)
-//    }
-//}
+#if DEBUG
+
+struct TreeDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        TreeDetailView(tree: Binding.constant(hardcodedTrees[0]))
+    }
+}
+
+#endif

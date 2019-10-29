@@ -14,17 +14,17 @@ struct MainView: View {
         
     var body: some View {
         VStack {
-            MapView(treeData: treeData, coordinate: locationManager.currentLocation)
-                .frame(height: 600)
+            MapView(coordinate: $locationManager.currentLocation, treeData: treeData)
                 .edgesIgnoringSafeArea(.top)
             
             TreeDetailView(tree: $treeData.selectedTree)
+                .frame(height: 200)
         }
     }
 }
 
 class TreeData: ObservableObject {
-    @Published var selectedTree: Tree = treeData[0]
+    @Published var selectedTree: Tree = hardcodedTrees[0]
     var trees: [Int: Tree] = [:]
 }
 

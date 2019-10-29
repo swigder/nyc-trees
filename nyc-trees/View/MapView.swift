@@ -9,15 +9,14 @@
 import SwiftUI
 import MapKit
 
-struct MapView: UIViewRepresentable {
-    @ObservedObject var locationManager = LocationManager()
+let defaultCoordinate = CLLocationCoordinate2D(latitude:40.782222, longitude:-73.965278)
 
+struct MapView: UIViewRepresentable {
+    @Binding var coordinate: CLLocationCoordinate2D?
+    
     var treeData: TreeData
-    var coordinate: CLLocationCoordinate2D?
     let regionRadius: CLLocationDistance = 250
-    
-    let defaultCoordinate = CLLocationCoordinate2D(latitude:40.782222, longitude:-73.965278)
-    
+        
     func makeCoordinator() -> MapViewDelegate {
         MapViewDelegate(treeData: treeData)
     }
@@ -30,15 +29,29 @@ struct MapView: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.follow, animated: true)
         mapView.delegate = context.coordinator
+        
+        let region = MKCoordinateRegion(center: coordinate ?? defaultCoordinate,
+                                        latitudinalMeters: regionRadius,
+                                        longitudinalMeters: regionRadius)
+        mapView.setRegion(region, animated: true)
+
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.frame.origin = CGPoint(x: 10, y: 60)
+        mapView.addSubview(button)
+                
         return mapView
     }
     
     func updateUIView(_ view: MKMapView, context: Context) {
-        print("hi")
-        let region = MKCoordinateRegion(center: coordinate ?? defaultCoordinate,
-                                        latitudinalMeters: regionRadius,
-                                        longitudinalMeters: regionRadius)
-        view.setRegion(region, animated: true)
+//        let region = MKCoordinateRegion(center: coordinate ?? defaultCoordinate,
+//                                        latitudinalMeters: regionRadius,
+//                                        longitudinalMeters: regionRadius)
+//        view.setRegion(region, animated: true)
     }
 }
 
@@ -53,7 +66,6 @@ class MapViewDelegate: NSObject, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("fetch!")
         self.mapView = mapView
         fetchTrees(region: mapView.region, callback: treesWereFetched(trees:))
     }
@@ -130,10 +142,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
         let newLocation = locations.last?.coordinate
         if (newLocation != nil && !locationsEqual(a: newLocation, b: currentLocation)) {
             currentLocation = locations.last?.coordinate
+            print(locations)
         }
     }
 
@@ -144,13 +156,16 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     }
 }
 
-//struct MapView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapView(coordinate: CLLocationCoordinate2D(
-//        latitude:40.782222, longitude:-73.965278))
-//    }
-//}
-
 func locationsEqual(a: CLLocationCoordinate2D?, b: CLLocationCoordinate2D?) -> Bool {
     return a?.latitude == b?.latitude && a?.longitude == b?.longitude
 }
+
+#if DEBUG
+
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView(coordinate: Binding.constant(defaultCoordinate), treeData: TreeData())
+    }
+}
+
+#endif
